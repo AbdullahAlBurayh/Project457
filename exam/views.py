@@ -39,4 +39,30 @@ def login_view(request):
 
 @login_required
 def index_view(request):
-    return render(request, 'index.html')
+    user = request.user
+    exams = user.examSet_set
+    context = {
+        'exams': exams,
+    }
+    return render(request, 'index.html', context)
+
+
+def ranking(request):
+    try:
+        users = User.objects.all()
+        PreRanking = []
+        ranking = []
+        for user in users:
+            for exam_set in user.examSet_set.all():
+                PreRanking.append((exam_set.user, exam_set.exam,
+                                   exam_set.marks, exam_set.highest))
+
+        ranking.append(
+            sorted(PreRanking, key=lambda grade: grade[2], reverse=True))
+        context = {
+            'ranking': ranking,
+        }
+
+        return render(request, 'index.html', context)
+    except:
+        pass
