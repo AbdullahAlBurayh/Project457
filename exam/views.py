@@ -54,6 +54,12 @@ def index_view(request):
 
 
 @login_required
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('index'))
+
+
+@login_required
 def exam(request, exam_name):
     if request.method == 'POST':
         print(request.POST)
@@ -97,6 +103,7 @@ def exam(request, exam_name):
         return render(request, 'exam.html', context)
 
 
+@login_required
 def ranking(request):
 
     users = User.objects.all()
