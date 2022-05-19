@@ -1,10 +1,13 @@
+from django.http.response import HttpResponse
+from .models import ExamSet
+from exam.models import Exam, ExamSet, Question
 from unicodedata import name
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login_required
 from django.contrib.auth import login, logout
 from django.core.mail import send_mail
-from exam.models import Exam, ExamSet, Question
+
 # Create your views here.
 
 
@@ -41,7 +44,13 @@ def login_view(request):
 
 @login_required
 def index_view(request):
-    return render(request, 'index.html')
+    user = request.user
+    exams = ExamSet.objects.filter(user=user)
+    context = {
+        'exams': exams,
+    }
+
+    return render(request, 'index.html', context)
 
 
 @login_required
@@ -86,3 +95,23 @@ def exam(request, exam_name):
             'questions': questions
         }
         return render(request, 'exam.html', context)
+
+
+def ranking(request):
+
+    users = User.objects.all()
+    PreRanking = []
+    ranking = []
+    for user in users:
+        exam_sets = ExamSet.objects.filter(user=user)
+        for exam_set in exam_sets:
+            PreRanking.append((exam_set.user.first_name, exam_set.user.last_name, exam_set.exam.name,
+                               exam_set.marks, exam_set.highest))
+
+    ranking.append(
+        sorted(PreRanking, key=lambda grade: grade[2], reverse=True))
+    context = {
+        'ranking': ranking,
+    }
+
+    return render(request, 'ranking.html', context)
