@@ -41,3 +41,4 @@ class ExamSet(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     marks = models.IntegerField(default=0)
     highest = models.BooleanField(default=False)
+    objects = ExamSetManager()
