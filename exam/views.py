@@ -83,8 +83,8 @@ def exam(request, exam_name):
                 wrong += 1
                 test = request.POST.get(q.question)
         percent = score/(total*10) * 100
-        eSet = ExamSet.objects.create(exam, request.user, correct)
-        eSet.save()
+        eSet = ExamSet.objects.create_examset(exam, request.user, correct)
+
         context = {
             'score': score,
             'time': request.POST.get('timer'),
