@@ -23,6 +23,6 @@ urlpatterns = [
     path('', index_view, name='index'),
     path('login/', login_view, name='login'),
     path('register/', register_view, name='register'),
-    path('exam/<str:exam_name>', exam, name='exam')
+    path('exam/<str:exam_name>', exam, name='exam'),
     path('ranking/', ranking, name='ranking'),
 ]
