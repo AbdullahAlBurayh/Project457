@@ -1,8 +1,10 @@
+from unicodedata import name
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login_required
 from django.contrib.auth import login, logout
 from django.core.mail import send_mail
+from exam.models import Exam, ExamSet, Question
 # Create your views here.
 
 
@@ -40,3 +42,47 @@ def login_view(request):
 @login_required
 def index_view(request):
     return render(request, 'index.html')
+
+
+@login_required
+def exam(request, exam_name):
+    if request.method == 'POST':
+        print(request.POST)
+        exam = Exam.objects.get(name=exam_name)
+        questions = exam.questions
+        score = 0
+        wrong = 0
+        correct = 0
+        total = 0
+        test = 't'
+        for q in questions.all():
+            total += 1
+            print(request.POST.get(q.question))
+            print(q.answer)
+            print()
+            if q.answer == request.POST.get(q.question):
+                score += 10
+                correct += 1
+                test = request.POST.get(q.question)
+            else:
+                wrong += 1
+                test = request.POST.get(q.question)
+        percent = score/(total*10) * 100
+        eSet = ExamSet.objects.create(exam, request.user, correct)
+        eSet.save()
+        context = {
+            'score': score,
+            'time': request.POST.get('timer'),
+            'correct': correct,
+            'wrong': wrong,
+            'percent': percent,
+            'total': total,
+        }
+        return render(request, 'result.html', context)
+    else:
+        exam = Exam.objects.get(name=exam_name)
+        questions = exam.questions
+        context = {
+            'questions': questions
+        }
+        return render(request, 'exam.html', context)
