@@ -1,54 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
-    integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-<div class="container mt-3 mb-4">
-    <div class="col-lg-9 mt-4 mt-lg-0">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
-                    <table class="table manage-candidates-top mb-0">
-                        <thead>
-                            <tr>
-                                <th>Student Name</th>
-                                <th class="text-center">Exam Name</th>
-                                <th class="action text-right">Grade</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for exam in exams.all %}
-                            <tr class="candidates-list">
-                                <td class="title">
-                                    <div class="thumb">
-
-                                    </div>
-                                    <div class="candidate-list-details">
-                                        <div class="candidate-list-info">
-                                            <div class="candidate-list-title">
-                                                <h5 class="mb-0"><a href="#">{{exam.user.first_name}} {{exam.user.last_name}}</a></h5>
-                                            </div>
-                                            <div class="candidate-list-option">
-                                                <ul class="list-unstyled">
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="candidate-list-favourite-time text-center">
-                                    <a class="candidate-list-favourite order-2 text-danger" href="#"></a>
-                                    <span class="candidate-list-time order-1">{{exam.exam.name}}</span>
-                                </td>
-                                <td>
-                                    <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                                        <span class="candidate-list-time order-1">{{exam.marks}}</span>
-                                    </ul>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+<section class="section-intro padding-y-sm">
+    <div class="container">
+        <h2 style="text-align: center;">Your Exams</h2>
+    </div>
+    <!-- container //  -->
+</section>
+<div class="container h-100">
+    <div class="row align-items-center h-100">
+        <div class="mx-auto" style="width: 200px;">
+            <div class="card " style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's
+                        content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
