@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import login_required
 from django.contrib.auth import login, logout
 from django.core.mail import send_mail
+from .models import ExamSet
+from django.http.response import HttpResponse
 # Create your views here.
 
 
@@ -40,29 +42,29 @@ def login_view(request):
 @login_required
 def index_view(request):
     user = request.user
-    exams = user.examSet_set
+    exams = ExamSet.objects.filter(user=user)
     context = {
         'exams': exams,
     }
+
     return render(request, 'index.html', context)
 
 
 def ranking(request):
-    try:
-        users = User.objects.all()
-        PreRanking = []
-        ranking = []
-        for user in users:
-            for exam_set in user.examSet_set.all():
-                PreRanking.append((exam_set.user, exam_set.exam,
-                                   exam_set.marks, exam_set.highest))
 
-        ranking.append(
-            sorted(PreRanking, key=lambda grade: grade[2], reverse=True))
-        context = {
-            'ranking': ranking,
-        }
+    users = User.objects.all()
+    PreRanking = []
+    ranking = []
+    for user in users:
+        exam_sets = ExamSet.objects.filter(user=user)
+        for exam_set in exam_sets:
+            PreRanking.append((exam_set.user.first_name, exam_set.user.last_name, exam_set.exam.name,
+                               exam_set.marks, exam_set.highest))
 
-        return render(request, 'index.html', context)
-    except:
-        pass
+    ranking.append(
+        sorted(PreRanking, key=lambda grade: grade[2], reverse=True))
+    context = {
+        'ranking': ranking,
+    }
+
+    return render(request, 'ranking.html', context)

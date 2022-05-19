@@ -17,6 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for exam in exams.all %}
                             <tr class="candidates-list">
                                 <td class="title">
                                     <div class="thumb">
@@ -25,7 +26,7 @@
                                     <div class="candidate-list-details">
                                         <div class="candidate-list-info">
                                             <div class="candidate-list-title">
-                                                <h5 class="mb-0"><a href="#">Hashem bozo</a></h5>
+                                                <h5 class="mb-0"><a href="#">{{exam.user.first_name}} {{exam.user.last_name}}</a></h5>
                                             </div>
                                             <div class="candidate-list-option">
                                                 <ul class="list-unstyled">
@@ -37,29 +38,17 @@
                                 </td>
                                 <td class="candidate-list-favourite-time text-center">
                                     <a class="candidate-list-favourite order-2 text-danger" href="#"></a>
-                                    <span class="candidate-list-time order-1">Test</span>
+                                    <span class="candidate-list-time order-1">{{exam.exam.name}}</span>
                                 </td>
                                 <td>
                                     <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                                        <span class="candidate-list-time order-1">8/10</span>
+                                        <span class="candidate-list-time order-1">{{exam.marks}}</span>
                                     </ul>
                                 </td>
                             </tr>
-
+                            {% endfor %}
                         </tbody>
                     </table>
-                    <div class="text-center mt-3 mt-sm-3">
-                        <ul class="pagination justify-content-center mb-0">
-                            <li class="page-item disabled"> <span class="page-link">Prev</span> </li>
-                            <li class="page-item active" aria-current="page"><span class="page-link">1 </span> <span
-                                    class="sr-only">(current)</span></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">25</a></li>
-                            <li class="page-item"> <a class="page-link" href="#">Next</a> </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
