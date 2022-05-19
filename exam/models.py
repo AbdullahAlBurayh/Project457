@@ -4,6 +4,15 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
+class ExamSetManager(models.Manager):
+    def create_examset(self, exam, user, marks):
+        examset = self.create(
+            exam=exam,
+            user=user,
+            marks=marks
+        )
+
+
 class Question(models.Model):
     question = models.CharField(max_length=100)
     img = models.ImageField(blank=True)
