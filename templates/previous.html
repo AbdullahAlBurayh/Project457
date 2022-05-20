@@ -18,8 +18,7 @@
                         </thead>
                         <tbody>
 
-                            {% for rank in ranking %}
-                            {% for item in rank %}
+                            {% for test in tests %}
                             <tr class="candidates-list">
                                 <td class="title">
                                     <div class="thumb">
@@ -28,7 +27,7 @@
                                     <div class="candidate-list-details">
                                         <div class="candidate-list-info">
                                             <div class="candidate-list-title">
-                                                <h5 class="mb-0"><a href="#">{{item.0}} {{item.1}} </a></h5>
+                                                <h5 class="mb-0"><a href="#">{{test.0}} {{test.1}} </a></h5>
                                             </div>
                                             <div class="candidate-list-option">
                                                 <ul class="list-unstyled">
@@ -40,16 +39,16 @@
                                 </td>
                                 <td class="candidate-list-favourite-time text-center">
                                     <a class="candidate-list-favourite order-2 text-danger" href="#"></a>
-                                    <span class="candidate-list-time order-1">{{item.2}}</span>
+                                    <span class="candidate-list-time order-1">{{test.2}}</span>
                                 </td>
                                 <td>
                                     <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                                        <span class="candidate-list-time order-1">{{item.3}}</span>
+                                        <span class="candidate-list-time order-1">{{test.3}}/{{test.4}}</span>
                                     </ul>
                                 </td>
                             </tr>
                             {% endfor %}
-                            {% endfor %}
+                            
                         </tbody>
                     </table>
                 </div>

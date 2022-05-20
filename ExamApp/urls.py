@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from exam.views import index_view, login_view, register_view, ranking, exam, logout_view
+from exam.views import index_view, login_view, register_view, ranking, exam, logout_view, previous
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('exam/<str:exam_name>', exam, name='exam'),
     path('ranking/', ranking, name='ranking'),
     path('logout/', logout_view, name='logout'),
+    path('previous/', previous, name='previous'),
 ]
