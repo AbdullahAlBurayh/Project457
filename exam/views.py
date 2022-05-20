@@ -59,10 +59,10 @@ def logout_view(request):
 
 
 @login_required
-def exam(request, exam_name):
+def exam(request, examid):
     if request.method == 'POST':
         print(request.POST)
-        exam = Exam.objects.get(name=exam_name)
+        exam = Exam.objects.get(examid=examid)
         questions = exam.questions
         score = 0
         wrong = 0
@@ -94,7 +94,7 @@ def exam(request, exam_name):
         }
         return render(request, 'result.html', context)
     else:
-        exam = Exam.objects.get(name=exam_name)
+        exam = Exam.objects.get(examid=examid)
         questions = exam.questions
         mins = exam.duration
         sec = 0

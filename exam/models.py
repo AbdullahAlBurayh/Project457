@@ -14,6 +14,7 @@ class ExamSetManager(models.Manager):
 
 
 class Question(models.Model):
+    questionid = models.AutoField(primary_key=True, default=0)
     question = models.CharField(max_length=100)
     img = models.ImageField(blank=True)
     optionA = models.CharField(max_length=100)
@@ -21,16 +22,18 @@ class Question(models.Model):
     optionC = models.CharField(max_length=100)
     optionD = models.CharField(max_length=100)
     answer = models.CharField(max_length=200)
+    hint = models.CharField(max_length=500)
 
     def __str__(self):
         return f'{self.question} \t\t Options: \nA. {self.optionA} \nB.{self.optionB} \nC.{self.optionC} \nD.{self.optionD} '
 
 
 class Exam(models.Model):
+    examid = models.AutoField(primary_key=True, default=None)
     name = models.CharField(max_length=100)
     duration = models.IntegerField()
     totalMarks = models.IntegerField()
-    questions = models.ManyToManyField(Question)
+    questions = models.ManyToManyField(Question, db_column='questionid')
     practice = models.BooleanField(default=False)
 
     def __str__(self):
@@ -38,7 +41,8 @@ class Exam(models.Model):
 
 
 class ExamSet(models.Model):
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, db_column='examid',
+                             on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     marks = models.IntegerField(default=0)
     objects = ExamSetManager()
