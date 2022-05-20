@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'exam',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -73,24 +74,18 @@ WSGI_APPLICATION = 'ExamApp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-if 'RDS_DB_NAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ebdb',
+        'USER': 'ExamAppUser',
+        'PASSWORD': 'Ab123456',
+        'HOST': 'aa4hptgbw6ab2b.cpxgafg4ke2u.us-west-2.rds.amazonaws.com',
+        'PORT': 5432,
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 
 # Password validation
@@ -136,12 +131,24 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
+AWS_ACCESS_KEY_ID = 'AKIA23NR4SH3X2I7WBOH'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'examappksubucket'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = 'static'
+
 STATICFILES_DIRS = [
     'ExamApp/static',
 ]
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+DEFAULT_FILE_STORAGE = 'ExamApp.media_storages.MediaStorage'
 # MEDIA CONFIG
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
