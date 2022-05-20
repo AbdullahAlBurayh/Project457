@@ -127,3 +127,16 @@ def ranking(request):
     }
 
     return render(request, 'ranking.html', context)
+
+
+@login_required
+def previous(request):
+    exam_sets = ExamSet.objects.filter(user=request.user)
+    tests = []
+    for exam_set in exam_sets:
+        tests.append((exam_set.user.first_name, exam_set.user.last_name, exam_set.exam.name,
+                      exam_set.marks, exam_set.exam.totalMarks))
+    context = {
+        'tests': tests,
+    }
+    return render(request, 'previous.html', context)

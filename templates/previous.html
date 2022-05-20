@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+    integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<div class="container mt-3 mb-4">
+    <div class="col-lg-9 mt-4 mt-lg-0">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+                    <table class="table manage-candidates-top mb-0">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th class="text-center">Exam Name</th>
+                                <th class="action text-right">Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for test in tests %}
+                            <tr class="candidates-list">
+                                <td class="title">
+                                    <div class="thumb">
+
+                                    </div>
+                                    <div class="candidate-list-details">
+                                        <div class="candidate-list-info">
+                                            <div class="candidate-list-title">
+                                                <h5 class="mb-0"><a href="#">{{test.0}} {{test.1}} </a></h5>
+                                            </div>
+                                            <div class="candidate-list-option">
+                                                <ul class="list-unstyled">
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="candidate-list-favourite-time text-center">
+                                    <a class="candidate-list-favourite order-2 text-danger" href="#"></a>
+                                    <span class="candidate-list-time order-1">{{test.2}}</span>
+                                </td>
+                                <td>
+                                    <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                                        <span class="candidate-list-time order-1">{{test.3}}/{{test.4}}</span>
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
