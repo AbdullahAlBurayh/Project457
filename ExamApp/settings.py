@@ -80,7 +80,7 @@ if 'RDS_DB_NAME' in os.environ:
             'NAME': 'ebdb',
             'USER': 'ExamAppUser',
             'PASSWORD': 'Ab123456',
-            'HOST': ' aazmvd2e1btrnl.cpxgafg4ke2u.us-west-2.rds.amazonaws.com',
+            'HOST': 'aazmvd2e1btrnl.cpxgafg4ke2u.us-west-2.rds.amazonaws.com',
             'PORT': 5432,
         }
     }
