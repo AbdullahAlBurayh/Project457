@@ -44,8 +44,7 @@ def login_view(request):
 
 @login_required
 def index_view(request):
-    user = request.user
-    exams = ExamSet.objects.filter(user=user)
+    exams = Exam.objects.all()
     context = {
         'exams': exams,
     }

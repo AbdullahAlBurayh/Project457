@@ -9,18 +9,17 @@
 </section>
 <div class="container h-100">
     <div class="row align-items-center h-100">
-        <div class="mx-auto" style="width: 200px;">
+        {%for e in exams%}
+        <div class="col mx-auto" style="width: 200px;">
             <div class="card " style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
+                <img src="https://www.ifa.com.au/images/News/exam-paper-ifa.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title">{{e.name}}</h5>
+                    <a href="{% url 'exam' e.name%}" class="btn btn-primary">Take exam</a>
                 </div>
             </div>
         </div>
+        {%endfor%}
     </div>
 </div>
 
