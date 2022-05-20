@@ -124,13 +124,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 AWS_ACCESS_KEY_ID = 'AKIA23NR4SH3X2I7WBOH'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'examappksubucket'
@@ -148,7 +141,12 @@ STATICFILES_DIRS = [
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-DEFAULT_FILE_STORAGE = 'ExamApp.media_storages.MediaStorage'
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
 # MEDIA CONFIG
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
