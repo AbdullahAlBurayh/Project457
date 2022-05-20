@@ -2,18 +2,36 @@
 {% block content %}
 <div class="container ">
 
-    <div align="right " id="displaytimer"><b>Timer: 0 seconds</b></div>
+    <input type="hidden" id="mins" value="{{ min }}">
+    <input type="hidden" id="secs" value="{{ sec }}">
+    <input type="hidden" id="is_practice" value="{{ is_practice }}">
+    <br>
+    {%if not is_practice%}
+    <div>
 
-    <form method='post' action=''>
-        {% csrf_token %}
-        {% for q in questions.all%}
-        <div class="form-group">
-            <label for="question">{{q.question}}</label>
+        <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
+            <div class="card-body">
+                <h5 class="card-title"><a>Time left :<a id="dmin">{{ min }}</a> mins <a id="dsec">{{ sec }}</a>
+                        seconds</a></h5>
+            </div>
         </div>
+    </div>
+    {%endif%}
+    {% csrf_token %}
+    {% for q in questions.all%}
+    <div class="card" style="width: 40rem;">
+        <div class="form-group">
+            <div class="card-header">
+                <label for="question"><b style="font-size: 20px;">{{q.question}}</b></label>
+            </div>
+        </div>
+        {%if q.img %}
+        <img src={{q.img.url}} class="img-thumbnail">
+        {%endif%}
         <div class="form-check">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1"
-                    value="{{q.optionA}}" checked>
+                    value="{{q.optionA}}">
                 <label class="form-check-label" for="gridRadios1">
                     {{q.optionA}}
                 </label>
@@ -41,25 +59,39 @@
             </div>
             <br>
         </div>
-        {% endfor %}
-        <input id='timer' type='hidden' name="timer" value="">
-        <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    <br>
+    {% endfor %}
+    <input id='timer' type='hidden' name="timer" value="">
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     {% block script %}
-    <script>
+    <script type="text/javascript">
+        var milisec = 0;
+        var seconds = document.getElementById("secs").value;
+        var minutes = document.getElementById("mins").value;
+        var fminutes = document.getElementById("mins").value;
+        var is_practice = document.getElementById("is_practice").value;
+        console.log(minutes)
+        //document.getElementById("d2").value = seconds
 
-        console.log('hello world')
-        const timer = document.getElementById('displaytimer')
-        console.log(timer.textContent)
-        const inputtag = document.getElementById('timer')
 
-        t = 0
-        setInterval(() => {
-            t += 1
-            timer.innerHTML = "<b>Timer: " + t + " seconds</b>"
-            inputtag.value = t
-        }, 1000)
+        function display() {
+            if (minutes == 0 && seconds == 0 && is_practice == false) {
+                document.getElementById("timer").innerHTML = 5
+                document.getElementById("examform").submit();
+            }
+            if (seconds == 0) {
+                minutes = minutes - 1
+                seconds = 60
+            }
+            seconds -= 1
+            document.getElementById("dsec").innerHTML = seconds
+            document.getElementById("dmin").innerHTML = minutes
+            setTimeout("display()", 1000)
+        }
+        display()
     </script>
     {% endblock script %}
 

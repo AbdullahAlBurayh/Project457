@@ -96,8 +96,14 @@ def exam(request, exam_name):
     else:
         exam = Exam.objects.get(name=exam_name)
         questions = exam.questions
+        mins = exam.duration
+        sec = 0
+        is_practice = exam.practice
         context = {
-            'questions': questions
+            'questions': questions,
+            'min': mins,
+            'sec': sec,
+            'is_practice': is_practice,
         }
         return render(request, 'exam.html', context)
 
