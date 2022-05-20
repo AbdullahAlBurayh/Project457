@@ -17,6 +17,7 @@
         </div>
     </div>
     {%endif%}
+    <form method='post' action='' id="examform">
     {% csrf_token %}
     {% for q in questions.all%}
     <div class="card" style="width: 40rem;">
