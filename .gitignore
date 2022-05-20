@@ -172,3 +172,4 @@ cython_debug/
 #.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
+exam/migrations/0003_auto_20220520_1925.py

@@ -113,7 +113,7 @@ def ranking(request):
         exam_sets = ExamSet.objects.filter(user=user)
         for exam_set in exam_sets:
             PreRanking.append((exam_set.user.first_name, exam_set.user.last_name, exam_set.exam.name,
-                               exam_set.marks, exam_set.highest))
+                               exam_set.marks, exam_set.exam.totalMarks))
 
     ranking.append(
         sorted(PreRanking, key=lambda grade: grade[2], reverse=True))

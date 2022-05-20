@@ -31,6 +31,7 @@ class Exam(models.Model):
     duration = models.IntegerField()
     totalMarks = models.IntegerField()
     questions = models.ManyToManyField(Question)
+    practice = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{name}'
@@ -40,5 +41,4 @@ class ExamSet(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     marks = models.IntegerField(default=0)
-    highest = models.BooleanField(default=False)
     objects = ExamSetManager()
