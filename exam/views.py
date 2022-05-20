@@ -44,13 +44,18 @@ def login_view(request):
 
 @login_required
 def index_view(request):
-    user = request.user
-    exams = ExamSet.objects.filter(user=user)
+    exams = Exam.objects.all()
     context = {
         'exams': exams,
     }
 
     return render(request, 'index.html', context)
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('index'))
 
 
 @login_required
@@ -97,6 +102,7 @@ def exam(request, exam_name):
         return render(request, 'exam.html', context)
 
 
+@login_required
 def ranking(request):
 
     users = User.objects.all()
